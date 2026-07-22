@@ -1,0 +1,77 @@
+{
+  "name": "vue-breakpoints-standalone",
+  "version": "0.0.0",
+  "description": "A tiny, Vue-only standalone implementation of VueUse's useBreakpoints composable.",
+  "keywords": [
+    "breakpoints",
+    "media-query",
+    "responsive",
+    "vue",
+    "vueuse"
+  ],
+  "homepage": "https://github.com/ElebrUS/vue-breakpoints-standalone#readme",
+  "bugs": {
+    "url": "https://github.com/ElebrUS/vue-breakpoints-standalone/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElebrUS/vue-breakpoints-standalone.git"
+  },
+  "funding": "https://github.com/sponsors/ElebrUS",
+  "author": "YOUR NAME <you@example.com>",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "npm@10.9.8",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "sideEffects": false,
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.8",
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^22.18.12",
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vitest": "^4.0.18",
+    "vue": "^3.5.24"
+  },
+  "scripts": {
+    "build": "tsup",
+    "changeset": "changeset",
+    "coverage": "vitest run --coverage",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings 0",
+    "release": "npm run build && npm publish --access public --provenance",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "version-packages": "changeset version"
+  }
+}
