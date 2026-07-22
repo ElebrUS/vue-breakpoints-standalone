@@ -18,7 +18,7 @@
     "url": "git+https://github.com/ElebrUS/vue-breakpoints-standalone.git"
   },
   "funding": "https://github.com/sponsors/ElebrUS",
-  "author": "YOUR NAME <you@example.com>",
+  "author": "ElebrUS",
   "license": "MIT",
   "type": "module",
   "packageManager": "npm@10.9.8",
