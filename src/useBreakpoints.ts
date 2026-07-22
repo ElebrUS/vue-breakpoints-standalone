@@ -17,6 +17,11 @@ export type Breakpoints<K extends string = string> = Record<
 export interface UseBreakpointsOptions extends ConfigurableWindow {
   /** @default "min-width" */
   strategy?: 'min-width' | 'max-width';
+  /**
+   * Named breakpoint used for SSR. Its configured numeric/string value becomes
+   * the SSR width unless `ssrWidth` is also provided.
+   */
+  ssrBreakpoint?: string;
   ssrWidth?: number;
 }
 
@@ -52,7 +57,15 @@ export function useBreakpoints<K extends string>(
     return typeof value === 'number' ? `${value}px` : value;
   }
 
-  const { window = defaultWindow, strategy = 'min-width', ssrWidth } = options;
+  const {
+    window = defaultWindow,
+    strategy = 'min-width',
+    ssrBreakpoint,
+    ssrWidth = ssrBreakpoint && ssrBreakpoint in breakpoints
+      ? pxValue(String(toValue(breakpoints[ssrBreakpoint as K])))
+      : undefined,
+  } = options;
+  const mediaOptions = { ...options, ssrWidth };
   const ssrSupport = typeof ssrWidth === 'number';
   const mounted = ssrSupport ? shallowRef(false) : { value: true };
   if (ssrSupport)
@@ -71,9 +84,9 @@ export function useBreakpoints<K extends string>(
   }
 
   const greaterOrEqual = (k: MaybeRefOrGetter<K>) =>
-    useMediaQuery(() => `(min-width: ${getValue(k)})`, options);
+    useMediaQuery(() => `(min-width: ${getValue(k)})`, mediaOptions);
   const smallerOrEqual = (k: MaybeRefOrGetter<K>) =>
-    useMediaQuery(() => `(max-width: ${getValue(k)})`, options);
+    useMediaQuery(() => `(max-width: ${getValue(k)})`, mediaOptions);
 
   const shortcutMethods = (Object.keys(breakpoints) as K[]).reduce(
     (shortcuts, k) => {
@@ -101,14 +114,14 @@ export function useBreakpoints<K extends string>(
     greaterOrEqual,
     smallerOrEqual,
     greater: (k: MaybeRefOrGetter<K>) =>
-      useMediaQuery(() => `(min-width: ${getValue(k, 0.1)})`, options),
+      useMediaQuery(() => `(min-width: ${getValue(k, 0.1)})`, mediaOptions),
     smaller: (k: MaybeRefOrGetter<K>) =>
-      useMediaQuery(() => `(max-width: ${getValue(k, -0.1)})`, options),
+      useMediaQuery(() => `(max-width: ${getValue(k, -0.1)})`, mediaOptions),
     between: (a: MaybeRefOrGetter<K>, b: MaybeRefOrGetter<K>) =>
       useMediaQuery(
         () =>
           `(min-width: ${getValue(a)}) and (max-width: ${getValue(b, -0.1)})`,
-        options,
+        mediaOptions,
       ),
     isGreater: (k: MaybeRefOrGetter<K>) => match('min', getValue(k, 0.1)),
     isGreaterOrEqual: (k: MaybeRefOrGetter<K>) => match('min', getValue(k)),
