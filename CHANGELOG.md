@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+### Minor Changes
+
+- [#9](https://github.com/ElebrUS/vue-breakpoints-standalone/pull/9) [`7f33f37`](https://github.com/ElebrUS/vue-breakpoints-standalone/commit/7f33f37682b86dd8f515d01540bd2deb6047229b) Thanks [@ElebrUS](https://github.com/ElebrUS)! - Add SSR breakpoint detection and coverage gate
+
 ## 1.0.0
 
 ### Major Changes
