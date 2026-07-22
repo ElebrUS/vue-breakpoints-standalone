@@ -6,8 +6,6 @@
 
 A tiny, Vue-only standalone implementation of VueUse's `useBreakpoints`. It keeps the familiar API while avoiding the rest of the VueUse dependency tree.
 
-> Before publishing, replace `ElebrUS`, author, funding, ownership, and security-contact placeholders across the repository.
-
 ## Why this package exists
 
 Use it when your application needs VueUse-compatible breakpoint reactivity but you want the smallest possible runtime surface: Vue is the only runtime dependency. The implementation is intentionally limited to `useBreakpoints`, its local `useMediaQuery` dependency, and the few utilities that support them.
